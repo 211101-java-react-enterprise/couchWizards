@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="couchWizards" />
+        <module name="couch-wizard" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="couch-wizard" target="8" />
       <module name="couchWizards" target="8" />
     </bytecodeTargetLevel>
   </component>
