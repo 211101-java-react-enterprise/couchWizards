@@ -4,10 +4,10 @@ drop table if exists cards;
 
 /*	All cards have...
  * 		- card name
- *  	- print date
+ *  	- print set
  * 		- supertype
  *  Cards can be reprinted so primary key is
- * 		- name, date
+ * 		- name, print set
  *
  */
 create table cards (
