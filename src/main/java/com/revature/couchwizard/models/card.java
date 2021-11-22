@@ -10,15 +10,13 @@ public class card {
     private String toughness;
     private String description;
     private String[] color;
-    private String printDate;
-
-
+    private String printSet;
 
 
 
     public card() {    }
 
-    public card(String name, String cost, String superTypes, String subTypes, String power, String toughness, String description, String[] color, String printDate) {
+    public card(String name, String cost, String superTypes, String subTypes, String power, String toughness, String description, String[] color, String printSet) {
         this.name = name;
         this.cost = cost;
         this.superTypes = superTypes;
@@ -27,7 +25,7 @@ public class card {
         this.toughness = toughness;
         this.description = description;
         this.color = color;
-        this.printDate = printDate;
+        this.printSet = printSet;
     }
 
     public String getName() {
@@ -94,12 +92,12 @@ public class card {
         this.color = color;
     }
 
-    public String getPrintDate() {
-        return printDate;
+    public String getPrintSet() {
+        return printSet;
     }
 
-    public void setPrintDate(String printDate) {
-        this.printDate = printDate;
+    public void setPrintSet(String printSet) {
+        this.printSet = printSet;
     }
 
     public void colorFromCost(String cost){
