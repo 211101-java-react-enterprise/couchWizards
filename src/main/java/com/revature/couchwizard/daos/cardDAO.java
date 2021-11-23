@@ -74,6 +74,7 @@ public class cardDAO implements CrudDAO<card>{
             // Insert the rows and record any changes to make sure they happen
             int rowsInserted = pstmt.executeUpdate();
 
+            // Return true if there's been any changes
             if (rowsInserted != 0) {
                 return true;
             }
