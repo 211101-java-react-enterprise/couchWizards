@@ -12,3 +12,5 @@ target/
 
 # Properties files
 *.properties
+/.idea/
+/target/
