@@ -6,6 +6,7 @@ import com.revature.couchwizard.util.List;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -52,9 +53,38 @@ public class cardDAO implements CrudDAO<card>{
 
     @Override
     public card findById(String id) {
+        // Decalre an empty card
+        card target = new card();
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            // Create the query
+            String sql = "select * from cards where card_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+
+            // Perform the query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                target.setId(rs.getString("card_id"));
+                target.setName(rs.getString("card_name"));
+                target.setPrintSet(rs.getString("print_set"));
+                target.setColor(rs.getString("c_cost"));
+                target.setSuperTypes(rs.getString("supertype"));
+                target.setPower(rs.getString("c_power"));
+                target.setToughness(rs.getString("c_tough"));
+                target.setDescription(rs.getString("c_desc"));
+                target.setCost(rs.getDouble("value"));
+                return target;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
+    // Updation method
     @Override
     public boolean update(card updatedObj){
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
@@ -83,6 +113,27 @@ public class cardDAO implements CrudDAO<card>{
             e.printStackTrace();
         }
         return false;
+    }
+
+    // Deletion method
+    public card delete(card targetObj) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            // Create the query to delete anything with the matching UUID
+            String sql = "delete from cards * where card_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, targetObj.getId());
+
+            // Perform the command and record the output
+            int rowsUpdated = pstmt.executeUpdate();
+
+            // If it succeeds, return the deleted object
+            if (rowsUpdated != 0) {
+                return targetObj;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
