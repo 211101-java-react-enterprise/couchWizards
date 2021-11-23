@@ -4,10 +4,10 @@ drop table if exists cards;
 
 /*	All cards have...
  * 		- card name
- *  	- print set
+ *  	- print date
  * 		- supertype
  *  Cards can be reprinted so primary key is
- * 		- name, print set
+ * 		- name, date
  *
  */
 create table cards (
@@ -20,16 +20,15 @@ create table cards (
 	c_tough varchar(4),
 	c_desc varchar,
 	value numeric(11, 2),
-	primary key (card_name, print_set)
+	card_id varchar not null,
+	primary key (card_id)
 );
 
 
 
 -- Creates a searchable index so you can find cards by just print date
-
 create unique index idx1 on cards (print_set, card_name);
 
 -- Creates a dummy card for testing purposes
-insert into cards (card_name, print_set, c_cost, supertype, subtype, c_power, c_tough, c_desc, value) values
-('Black Lotus', 'Limited Edition Alpha', '0', 'Artifact', null, null, null, 'Add 3 mana of any single color of your choice to your mana pool, then is discarded. Tapping this artifact can be played as an interrupt', 3149.68);
-
+insert into cards (card_name, print_set, c_cost, supertype, subtype, c_power, c_tough, c_desc, value, card_id) values
+('Black Lotus', 'Limited Edition Alpha', '0', 'Artifact', null, null, null, 'Add 3 mana of any single color of your choice to your mana pool, then is discarded. Tapping this artifact can be played as an interrupt', 3149.68, 'd2ad27f2-650f-48f3-ab8c-81b6ae473a1c');
