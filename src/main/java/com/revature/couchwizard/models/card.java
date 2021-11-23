@@ -11,6 +11,7 @@ public class card {
     private String description;
     private String[] color;
     private String printSet;
+    private String id;
 
 
 
@@ -99,6 +100,10 @@ public class card {
     public void setPrintSet(String printSet) {
         this.printSet = printSet;
     }
+
+    public String getId() {return id;}
+
+    public void setId(String id) {this.id = id;}
 
     public void colorFromCost(String cost){
         int i = 0;
