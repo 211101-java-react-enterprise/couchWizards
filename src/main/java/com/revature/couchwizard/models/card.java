@@ -3,7 +3,7 @@ package com.revature.couchwizard.models;
 public class card {
 
     private String name;
-    private String cost;
+    private double cost;
     private String superTypes;
     private String subTypes;
     private String power;
@@ -16,7 +16,7 @@ public class card {
 
     public card() {    }
 
-    public card(String name, String cost, String superTypes, String subTypes, String power, String toughness, String description, String[] color, String printSet) {
+    public card(String name, double cost, String superTypes, String subTypes, String power, String toughness, String description, String[] color, String printSet) {
         this.name = name;
         this.cost = cost;
         this.superTypes = superTypes;
@@ -36,11 +36,11 @@ public class card {
         this.name = name;
     }
 
-    public String getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
