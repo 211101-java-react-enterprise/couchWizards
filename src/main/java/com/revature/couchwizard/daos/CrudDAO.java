@@ -1,6 +1,6 @@
 package com.revature.couchwizard.daos;
 
-import com.revature.couchwizard.util.List;
+import java.util.*;
 
 // CRUD: Create, Read, Update, Delete
 public interface CrudDAO<T> {
