@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.*;
 
-public class cardDAO implements CrudDAO<card>{
+public class CardDAO implements CrudDAO<card>{
 
     public card save(card newCard) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){

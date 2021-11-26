@@ -3,13 +3,13 @@ package com.revature.couchwizard.services;
 import com.revature.couchwizard.models.card;
 
 import java.util.List;
-import com.revature.couchwizard.daos.cardDAO;
+import com.revature.couchwizard.daos.CardDAO;
 
 public class CardService {
 
-    private final cardDAO cardDAO;
+    private final CardDAO cardDAO;
 
-    public CardService(cardDAO cardDAO) {
+    public CardService(CardDAO cardDAO) {
         this.cardDAO = cardDAO;
     }
 
