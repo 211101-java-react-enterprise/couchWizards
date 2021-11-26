@@ -1,6 +1,7 @@
 package com.revature.couchwizard.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.couchwizard.web.servlets.TestServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,11 +10,13 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 
+
 public class ContextLoaderListener implements ServletContextListener {
 
-//    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
+//
 
-/*    @Override
+    @Override
     public void contextInitialized(ServletContextEvent sce) {
 
         System.out.println("Initializing application");
@@ -22,26 +25,28 @@ public class ContextLoaderListener implements ServletContextListener {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        AppUserDAO userDAO = new AppUserDAO();
-        UserService userService = new UserService(userDAO);
+       // AppUserDAO userDAO = new AppUserDAO();
+       // UserService userService = new UserService(userDAO);
 
-        FlashcardDAO cardDAO = new FlashcardDAO();
-        FlashcardService cardService = new FlashcardService(cardDAO, userService);
+       // FlashcardDAO cardDAO = new FlashcardDAO();
+       // FlashcardService cardService = new FlashcardService(cardDAO, userService);
 
-        FlashcardServlet cardServlet = new FlashcardServlet(cardService, objectMapper);
-        UserServlet userServlet = new UserServlet(userService, objectMapper);
+       // FlashcardServlet cardServlet = new FlashcardServlet(cardService, objectMapper);
+       // UserServlet userServlet = new UserServlet(userService, objectMapper);
+
+        TestServlet testServlet = new TestServlet();
 
         ServletContext context = sce.getServletContext();
-        context.addServlet("FlashcardServlet", cardServlet).addMapping("/flashcards");
-        context.addServlet("UserServlet", userServlet).addMapping("/users/*");
+        context.addServlet("TestServlet", testServlet).addMapping("/test/*");
+        //context.addServlet("FlashcardServlet", cardServlet).addMapping("/flashcards");
+       // context.addServlet("UserServlet", userServlet).addMapping("/users/*");
 
         System.out.println("Application initialized!");
-//        logger.info("Application initialized!");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        logger.info("Shutting down Quizzard web application!");
+        logger.info("Shutting down Couch Wizards web application!");
     }
-} */
 }
+

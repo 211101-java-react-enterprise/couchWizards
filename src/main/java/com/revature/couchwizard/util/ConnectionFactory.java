@@ -33,7 +33,8 @@ public class ConnectionFactory {
 
     private ConnectionFactory() {
         try {
-            props.load(new FileReader("src/main/resources/db.properties"));
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            props.load(loader.getResourceAsStream("db.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
