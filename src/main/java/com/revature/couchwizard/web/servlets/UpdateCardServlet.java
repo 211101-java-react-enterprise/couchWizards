@@ -35,10 +35,10 @@ public class UpdateCardServlet extends HttpServlet {
             Card updateCard = mapper.readValue(req.getInputStream(), Card.class);
             boolean wasUpdated = cardService.createNewCard(updateCard);
             if (wasUpdated){
-                System.out.println("Card Saved to Database!");
+                System.out.println("Card updated in Database!");
                 resp.setStatus(201);
             } else {
-                System.out.println("Could not save card. Please Check Logs");
+                System.out.println("Could not update card. Please Check Logs");
                 resp.setStatus(500);
             }
         }
