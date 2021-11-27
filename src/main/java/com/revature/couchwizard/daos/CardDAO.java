@@ -86,7 +86,7 @@ public class CardDAO implements CrudDAO<Card>{
 
     // Updation method
     @Override
-    public boolean update(Card updatedObj){
+    public Card update(Card updatedObj){
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             // Pushes the card to the database
             String sql = "update cards set card_name = ?, print_set = ?, c_cost = ?, supertype = ?, subtype = ?, c_power = ?, c_tough = ?, c_desc = ?, value = ? where card_id = ? ";
@@ -106,13 +106,14 @@ public class CardDAO implements CrudDAO<Card>{
 
             // Return true if there's been any changes
             if (rowsInserted != 0) {
-                return true;
+                return updatedObj;
             }
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
+        return null;
     }
 
     // Deletion method

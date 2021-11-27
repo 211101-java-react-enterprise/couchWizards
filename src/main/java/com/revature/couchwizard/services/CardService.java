@@ -37,6 +37,24 @@ public class CardService {
 
     }
 
+    public boolean updateCard(Card updateCard) {
+
+        if (!isCardValid(updateCard)) {
+            //TODO Exception Logic
+            //throw new InvalidRequestException("Invalid card information values provided!");
+        }
+
+        Card addedCard = cardDAO.update(updateCard);
+
+        if (addedCard == null) {
+            //TODO Exception Logic
+            //throw new ResourcePersistenceException("The card could not be persisted to the datasource!");
+        }
+
+        return true;
+
+    }
+
     public boolean isCardValid(Card card) {
             //TODO Write Valid Card Checks
         if (card == null) return false;
