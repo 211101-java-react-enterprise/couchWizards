@@ -1,6 +1,6 @@
 package com.revature.couchwizard.models;
 
-public class card {
+public class Card {
 
     private String name;
     private double cost;
@@ -15,9 +15,9 @@ public class card {
 
 
 
-    public card() {    }
+    public Card() {    }
 
-    public card(String name, double cost, String superTypes, String subTypes, String power, String toughness, String description, String color, String printSet) {
+    public Card(String name, double cost, String superTypes, String subTypes, String power, String toughness, String description, String color, String printSet) {
         this.name = name;
         this.cost = cost;
         this.superTypes = superTypes;

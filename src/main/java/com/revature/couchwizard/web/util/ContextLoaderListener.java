@@ -2,6 +2,8 @@ package com.revature.couchwizard.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.couchwizard.daos.CardDAO;
+import com.revature.couchwizard.services.CardService;
+import com.revature.couchwizard.web.servlets.InsertCardServlet;
 import com.revature.couchwizard.web.servlets.TestServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,21 +28,14 @@ public class ContextLoaderListener implements ServletContextListener {
 
         ObjectMapper objectMapper = new ObjectMapper();
         CardDAO cardDAO = new CardDAO();
-
-       // UserService userService = new UserService(userDAO);
-
-       // FlashcardDAO cardDAO = new FlashcardDAO();
-       // FlashcardService cardService = new FlashcardService(cardDAO, userService);
-
-       // FlashcardServlet cardServlet = new FlashcardServlet(cardService, objectMapper);
-       // UserServlet userServlet = new UserServlet(userService, objectMapper);
+        CardService cardService = new CardService(cardDAO);
 
         TestServlet testServlet = new TestServlet();
+        InsertCardServlet insertCardServlet = new InsertCardServlet(cardService, objectMapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("TestServlet", testServlet).addMapping("/test/*");
-        //context.addServlet("FlashcardServlet", cardServlet).addMapping("/flashcards");
-       // context.addServlet("UserServlet", userServlet).addMapping("/users/*");
+        context.addServlet("InsertCardServlet", insertCardServlet).addMapping("/save");
 
         System.out.println("Application initialized!");
     }
@@ -51,3 +46,4 @@ public class ContextLoaderListener implements ServletContextListener {
     }
 }
 
+//TODO Update, Read, Delete Servlets. Test Create(insert) servlet manually with a DB connection. Look into Sessions without a logged in user.

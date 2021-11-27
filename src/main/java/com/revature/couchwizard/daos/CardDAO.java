@@ -1,6 +1,6 @@
 package com.revature.couchwizard.daos;
 
-import com.revature.couchwizard.models.card;
+import com.revature.couchwizard.models.Card;
 import com.revature.couchwizard.util.ConnectionFactory;
 
 import java.sql.Connection;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.*;
 
-public class CardDAO implements CrudDAO<card>{
+public class CardDAO implements CrudDAO<Card>{
 
-    public card save(card newCard) {
+    public Card save(Card newCard) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             // Sets a UUID for the card
             newCard.setId(UUID.randomUUID().toString());
@@ -49,12 +49,12 @@ public class CardDAO implements CrudDAO<card>{
     }
 
     @Override
-    public List<card> findAll() { return null;}
+    public List<Card> findAll() { return null;}
 
     @Override
-    public card findById(String id) {
+    public Card findById(String id) {
         // Decalre an empty card
-        card target = new card();
+        Card target = new Card();
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             // Create the query
@@ -86,7 +86,7 @@ public class CardDAO implements CrudDAO<card>{
 
     // Updation method
     @Override
-    public boolean update(card updatedObj){
+    public boolean update(Card updatedObj){
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             // Pushes the card to the database
             String sql = "update cards set card_name = ?, print_set = ?, c_cost = ?, supertype = ?, subtype = ?, c_power = ?, c_tough = ?, c_desc = ?, value = ? where card_id = ? ";
@@ -116,7 +116,7 @@ public class CardDAO implements CrudDAO<card>{
     }
 
     // Deletion method
-    public card delete(card targetObj) {
+    public Card delete(Card targetObj) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             // Create the query to delete anything with the matching UUID
             String sql = "delete from cards * where card_id = ?";
