@@ -17,14 +17,12 @@ import javax.servlet.ServletContextListener;
 public class ContextLoaderListener implements ServletContextListener {
 
     private final static Logger logger = LogManager.getLogger();
-//
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
         System.out.println("Initializing application");
 
-//        logger.info("Initializing application");
 
         ObjectMapper objectMapper = new ObjectMapper();
         CardDAO cardDAO = new CardDAO();

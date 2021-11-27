@@ -39,6 +39,13 @@ public class CardService {
 
     public boolean isCardValid(Card card) {
             //TODO Write Valid Card Checks
-        return true;
+        if (card == null) return false;
+        if (card.getName() == null || card.getName().trim().equals("")) return false;
+        if (card.getColor() == null || card.getColor().trim().equals("")) return false;
+        if (card.getSuperTypes() == null || card.getSuperTypes().trim().equals("")) return false;
+        if (card.getPrintSet() == null || card.getPrintSet().trim().equals("")) return false;
+        if (card.getSuperTypes().contains("Creature") && card.getPower() == null) return false;
+        if (card.getSuperTypes().contains("Creature") && card.getToughness() == null) return false;
+        return (card.getName() != null && !card.getSuperTypes().trim().equals("") && !card.getPrintSet().trim().equals(""));
     }
 }
