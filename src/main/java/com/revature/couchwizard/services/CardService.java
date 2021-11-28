@@ -55,6 +55,7 @@ public class CardService {
 
     }
 
+    // Checks that any card utilized is valid.
     public boolean isCardValid(Card card) {
             //TODO Write Valid Card Checks
         if (card == null) return false;

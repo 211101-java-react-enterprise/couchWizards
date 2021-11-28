@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// Different path, similar to insert, just updates a previous card.
 @WebServlet("/update")
 public class UpdateCardServlet extends HttpServlet {
 
@@ -33,7 +34,7 @@ public class UpdateCardServlet extends HttpServlet {
 
         try{
             Card updateCard = mapper.readValue(req.getInputStream(), Card.class);
-            boolean wasUpdated = cardService.createNewCard(updateCard);
+            boolean wasUpdated = cardService.updateCard(updateCard); // Only different line from InsertCardService
             if (wasUpdated){
                 System.out.println("Card updated in Database!");
                 resp.setStatus(201);
