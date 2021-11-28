@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/test")
-public class TestServlet extends HttpServlet {
 
+
+//@WebServlet("/test")
+public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().write("<h1>/test works</h>");
+        System.out.println("Inside test!");
     }
 }

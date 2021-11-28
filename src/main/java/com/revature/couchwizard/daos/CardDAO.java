@@ -22,13 +22,14 @@ public class CardDAO implements CrudDAO<Card>{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newCard.getName());
             pstmt.setString(2, newCard.getPrintSet());
-            pstmt.setString(3, newCard.getColor().toString());
+            pstmt.setString(3, newCard.getColor());
             pstmt.setString(4, newCard.getSuperTypes());
             pstmt.setString(5, newCard.getSubTypes());
             pstmt.setString(6, newCard.getPower());
-            pstmt.setString(7, newCard.getDescription());
-            pstmt.setDouble(8, newCard.getCost());
-            pstmt.setString(9, newCard.getId());
+            pstmt.setString(7, newCard.getToughness());
+            pstmt.setString(8, newCard.getDescription());
+            pstmt.setDouble(9, newCard.getCost());
+            pstmt.setString(10, newCard.getId());
 
             // Insert the rows and record any changes to make sure they happen
             int rowsInserted = pstmt.executeUpdate();
