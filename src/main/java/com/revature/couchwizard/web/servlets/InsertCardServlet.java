@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 // Annotation that sets the path for browser routing.
-// @WebServlet("/save")
 public class InsertCardServlet extends HttpServlet {
 
     // Card service handles cards.

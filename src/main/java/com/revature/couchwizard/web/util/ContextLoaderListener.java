@@ -32,8 +32,8 @@ public class ContextLoaderListener implements ServletContextListener {
         InsertCardServlet insertCardServlet = new InsertCardServlet(cardService, objectMapper);
 
         ServletContext context = sce.getServletContext();
-        context.addServlet("TestServlet", testServlet).addMapping("/test/*");
-        context.addServlet("InsertCardServlet", insertCardServlet).addMapping("/save");
+        context.addServlet("TestServlet", testServlet).addMapping("/test");
+        context.addServlet("InsertCardServlet", insertCardServlet).addMapping("/save/*");
 
         System.out.println("Application initialized!");
     }

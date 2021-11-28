@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 // Different path, similar to insert, just updates a previous card.
-@WebServlet("/update")
 public class UpdateCardServlet extends HttpServlet {
 
     private final CardService cardService;

@@ -1,6 +1,7 @@
 package com.revature.couchwizard.web.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.couchwizard.models.Card;
 import com.revature.couchwizard.services.CardService;
 
 import javax.servlet.ServletException;
@@ -8,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/read")
+
 public class ReadCardServlet extends HttpServlet {
 
     private final CardService cardService;
@@ -24,8 +27,18 @@ public class ReadCardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("<h1>/Read Works</h>");
+        //resp.getWriter().write("<h1>/Read Works</h>");
         resp.setContentType("application/json");
-        //Todo Logic to pull a card from the DB based on conditions
+        List<Card> cards;
+
+        cards = cardService.findAllCards();
+
+        if (cards.isEmpty()) {
+            resp.setStatus(404); // no cards found
+            return; // return here so you don't try to execute the logic after this block
+        }
+
+        String payload = mapper.writeValueAsString(cards);
+        resp.getWriter().write(payload);
     }
 }

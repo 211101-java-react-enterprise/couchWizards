@@ -15,8 +15,7 @@ public class CardService {
 
     public List<Card> findAllCards() {
         //TODO Implement Maybe
-       // return cardDAO.findAll();
-        return null;
+       return cardDAO.findAll();
     }
 
     public boolean createNewCard(Card newCard) {

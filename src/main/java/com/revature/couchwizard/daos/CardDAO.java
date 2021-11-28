@@ -3,10 +3,7 @@ package com.revature.couchwizard.daos;
 import com.revature.couchwizard.models.Card;
 import com.revature.couchwizard.util.ConnectionFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.UUID;
 import java.util.*;
 
@@ -50,7 +47,39 @@ public class CardDAO implements CrudDAO<Card>{
     }
 
     @Override
-    public List<Card> findAll() { return null;}
+    public List<Card> findAll() {
+
+        List<Card> cards = new LinkedList<>();
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            // Create the query
+            String sql = "select * from cards";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                Card card = new Card();
+                card.setId(rs.getString("card_id"));
+                card.setName(rs.getString("card_name"));
+                card.setPrintSet(rs.getString("print_set"));
+                card.setColor(rs.getString("c_cost"));
+                card.setSuperTypes(rs.getString("supertype"));
+                card.setPower(rs.getString("c_power"));
+                card.setToughness(rs.getString("c_tough"));
+                card.setDescription(rs.getString("c_desc"));
+                card.setCost(rs.getDouble("value"));
+                cards.add(card);
+            }
+
+            return cards;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     @Override
     public Card findById(String id) {
