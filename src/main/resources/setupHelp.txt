@@ -1,0 +1,13 @@
+WINDOWS
+- First navigate into the apache maven's tomcat bin folder in command line
+- use the command "./catalina run"
+- navigate back to project root in a new window.
+- run the command "mvn tomcat7:deploy"
+- This should be up and running after that using the routing "couchwizards/[destination goes here]"
+
+LINUX
+- Navigate to the apache maven tomcat's bin folder in bash
+- run the command "sh catalina.sh run"
+- navigate back to the project root in a new window.
+- run the command "mvn tomcat7:deploy"
+
