@@ -25,7 +25,7 @@ public class CardDAO implements CrudDAO<Card>{
             pstmt.setString(6, newCard.getPower());
             pstmt.setString(7, newCard.getToughness());
             pstmt.setString(8, newCard.getDescription());
-            pstmt.setDouble(9, newCard.getCost());
+            pstmt.setDouble(9, newCard.getValue());
             pstmt.setString(10, newCard.getId());
 
             // Insert the rows and record any changes to make sure they happen
@@ -67,7 +67,7 @@ public class CardDAO implements CrudDAO<Card>{
                 card.setPower(rs.getString("c_power"));
                 card.setToughness(rs.getString("c_tough"));
                 card.setDescription(rs.getString("c_desc"));
-                card.setCost(rs.getDouble("value"));
+                card.setValue(rs.getDouble("value"));
                 cards.add(card);
             }
 
@@ -103,7 +103,7 @@ public class CardDAO implements CrudDAO<Card>{
                 target.setPower(rs.getString("c_power"));
                 target.setToughness(rs.getString("c_tough"));
                 target.setDescription(rs.getString("c_desc"));
-                target.setCost(rs.getDouble("value"));
+                target.setValue(rs.getDouble("value"));
                 return target;
             }
 
@@ -128,7 +128,7 @@ public class CardDAO implements CrudDAO<Card>{
             pstmt.setString(5, updatedObj.getSubTypes());
             pstmt.setString(6, updatedObj.getPower());
             pstmt.setString(7, updatedObj.getDescription());
-            pstmt.setDouble(8, updatedObj.getCost());
+            pstmt.setDouble(8, updatedObj.getValue());
             pstmt.setString(9, updatedObj.getId());
 
             // Insert the rows and record any changes to make sure they happen
