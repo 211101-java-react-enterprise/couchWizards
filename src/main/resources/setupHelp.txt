@@ -11,3 +11,12 @@ LINUX
 - navigate back to the project root in a new window.
 - run the command "mvn tomcat7:deploy"
 
+
+SIDENOTE: To add the ORM as a dependency when it's ready add this to dependencies
+        <dependency>
+            <groupId>com.revature</groupId>
+            <artifactId>couchwizards_orm</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>[.JAR PATH]</systemPath>
+        </dependency>

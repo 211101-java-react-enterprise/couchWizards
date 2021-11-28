@@ -1,16 +1,31 @@
 package com.revature.couchwizard.models;
 
+/*  Logic for when we finish the ORM is commented out here
+
+ */
+
+// @Table(tableName="cards")
 public class Card {
 
+    // @Column(columnName="card_name")
     private String name;
+    // @Column(columnName="value")
     private double value;
+    // @Column(columnName="supertype")
     private String superTypes;
+    // @Column(columnName="subtype")
     private String subTypes;
+    // @Column(columnName="c_power")
     private String power;
+    // @Column(columnName="c_tough")
     private String toughness;
+    // @Column(columnName="c_desc")
     private String description;
+    // @Column(columnName="c_cost")
     private String color;
+    // @Column(columnName="print_set")
     private String printSet;
+    // @Column(columnName="card_id")
     private String id;
 
 
@@ -104,5 +119,13 @@ public class Card {
     public String getId() {return id;}
 
     public void setId(String id) {this.id = id;}
+
+    // To string method for debugging purposes
+    @Override
+    public String toString() {
+        return "Card [id= " + id + ", name=" + name + ", value=" + value + ", superTypes=" + superTypes +
+                ", subTypes=" + subTypes + ", power=" + power + ", toughness=" + toughness + ", description=" +
+                description + ", color cost=" + color + ", print set=" + printSet + "]";
+    }
 
 }

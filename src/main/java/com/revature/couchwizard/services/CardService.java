@@ -5,6 +5,7 @@ import com.revature.couchwizard.models.Card;
 import java.util.List;
 import com.revature.couchwizard.daos.CardDAO;
 
+
 public class CardService {
 
     private final CardDAO cardDAO;
