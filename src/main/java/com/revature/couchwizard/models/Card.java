@@ -25,7 +25,8 @@ public class Card {
     private String color;
     // @Column(columnName="print_set")
     private String printSet;
-    // @Column(columnName="card_id")
+    // @Id(columnName="card_id")
+    // Something that generates a random uuid if there isn't one already somehow?
     private String id;
 
 
