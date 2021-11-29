@@ -22,7 +22,7 @@ public class Card {
     private String toughness;
     @JsonField
     private String description;
-    @JsonField //(key = "c_color")
+    @JsonField (Key = "c_color")
     private String color;
     @JsonField
     private String printSet;
