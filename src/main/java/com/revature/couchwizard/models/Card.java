@@ -4,29 +4,32 @@ package com.revature.couchwizard.models;
 
  */
 
-// @Table(tableName="cards")
+import com.revature.couchwizard.annotations.Column;
+import com.revature.couchwizard.annotations.Id;
+import com.revature.couchwizard.annotations.Table;
+
+@Table(tableName="cards")
 public class Card {
 
-    // @Column(columnName="card_name")
+    @Column(columnName="card_name")
     private String name;
-    // @Column(columnName="value")
+    @Column(columnName="value")
     private double value;
-    // @Column(columnName="supertype")
+    @Column(columnName="supertype")
     private String superTypes;
-    // @Column(columnName="subtype")
+    @Column(columnName="subtype")
     private String subTypes;
-    // @Column(columnName="c_power")
+    @Column(columnName="c_power")
     private String power;
-    // @Column(columnName="c_tough")
+    @Column(columnName="c_tough")
     private String toughness;
-    // @Column(columnName="c_desc")
+    @Column(columnName="c_desc")
     private String description;
-    // @Column(columnName="c_cost")
+    @Column(columnName="c_cost")
     private String color;
-    // @Column(columnName="print_set")
+    @Column(columnName="print_set")
     private String printSet;
-    // @Id(columnName="card_id")
-    // Something that generates a random uuid if there isn't one already somehow?
+    @Id(columnName="card_id")
     private String id;
 
 

@@ -1,13 +1,75 @@
 package com.revature.couchwizard.daos;
 
+import com.revature.couchwizard.annotations.*;
 import com.revature.couchwizard.models.Card;
 import com.revature.couchwizard.util.ConnectionFactory;
 
+import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.UUID;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CardDAO implements CrudDAO<Card>{
+
+    public boolean genSave (Object target) throws Exception {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+            // Check that we have something to work with first.
+            if (target == null) throw new NullPointerException("Given object is null!");
+
+            // Create a generic class that we can reference to for reflection.
+            Class<?> targetClass = target.getClass();
+            // Then check that it's got a table name
+            if(!targetClass.isAnnotationPresent(Table.class)){
+                throw new RuntimeException("The class " + targetClass.getSimpleName() + " is not annotated with a table!");
+            }
+            // Boolean flag to check that we have an id
+            boolean doesIdExist = false;
+            // See if the existant primary id is the default value of '' or if it has a value. If it is '' then fill it.
+            Map<String, String> objMap = new HashMap<>();
+            // The for loop reflects the targetClass's fields we referenced and makes them accessible.
+            for (Field field: targetClass.getDeclaredFields()){
+                field.setAccessible(true); // Accessible moment
+
+                // Checks that we have a valid UUID (Which will have exactly 36 characters)
+                if (field.isAnnotationPresent(Id.class)){
+                    doesIdExist = true; // Update our flag
+                    // We don't want to call tostring on a null value
+                    if (field.get(target) != null)
+                    {   // UUID's always have 36 characters
+                        if (field.get(target).toString().length() != 36 ) objMap.put(field.getAnnotation(Id.class).columnName(), UUID.randomUUID().toString());
+                        else objMap.put(field.getAnnotation(Id.class).columnName(), field.get(target).toString());
+                    } // .getAnnotation(AnnoName.class) references the annotation which we can then pull .columnName() from.
+                    else objMap.put(field.getAnnotation(Id.class).columnName(), UUID.randomUUID().toString());
+                } // If it's a normal column, adds that as well
+                else if (field.isAnnotationPresent(Column.class)){
+                    if (field.get(target) == null) objMap.put(field.getAnnotation(Column.class).columnName(), "null");
+                    else objMap.put(field.getAnnotation(Column.class).columnName(), field.get(target).toString());
+                }
+            }
+            if (!doesIdExist) throw new RuntimeException("The class " + targetClass.getSimpleName() + " does not have a primary key!");
+
+            // Build our string out.
+            String sql = "insert into ";
+            sql = sql + target.getClass().getAnnotation(Table.class).tableName() + " (";
+            // Obligatory stream
+            String sqlColumn = objMap.entrySet().stream().map(entry -> entry.getKey()).collect(Collectors.joining(", "));
+            sql = sql + sqlColumn + ") values ( '";
+            sqlColumn = objMap.entrySet().stream().map(entry -> entry.getValue()).collect(Collectors.joining("', '"));
+            sql = sql + sqlColumn + "')";
+            PreparedStatement genSQL = conn.prepareStatement(sql);
+
+            int rowsInserted = genSQL.executeUpdate();
+
+            if (rowsInserted != 0) {
+                return true;
+            }
+
+    }catch (SQLException e) {
+        e.printStackTrace();
+    }
+        return false;
+    }
 
     public Card save(Card newCard) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
