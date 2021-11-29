@@ -1,21 +1,37 @@
 package com.revature.couchwizard.models;
 
+import com.revature.couchwizard.annotations.Init;
+import com.revature.couchwizard.annotations.JsonField;
+import com.revature.couchwizard.annotations.JsonTableAnnotation;
+
+
+@JsonTableAnnotation
 public class Card {
 
+    @JsonField
     private String name;
+    @JsonField
     private double cost;
+    @JsonField
     private String superTypes;
+    @JsonField
     private String subTypes;
+    @JsonField
     private String power;
+    @JsonField
     private String toughness;
+    @JsonField
     private String description;
+    @JsonField //(key = "c_color")
     private String color;
+    @JsonField
     private String printSet;
     private String id;
 
 
 
     public Card() {    }
+
 
     public Card(String name, double cost, String superTypes, String subTypes, String power, String toughness, String description, String color, String printSet) {
         this.name = name;
@@ -104,5 +120,11 @@ public class Card {
     public String getId() {return id;}
 
     public void setId(String id) {this.id = id;}
+
+    @Init
+    private void intializationTestMethod() {
+        System.out.println("Init Called Correctly");
+
+    }
 
 }
