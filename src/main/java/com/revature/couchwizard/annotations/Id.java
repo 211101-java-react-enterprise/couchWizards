@@ -7,7 +7,6 @@ import java.lang.annotation.*;
 @Documented
 
 
-// TODO: MAYBE generate a random UUID here by default?
 public @interface Id {
     public String columnName() default "";
 }
