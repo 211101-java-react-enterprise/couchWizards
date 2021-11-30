@@ -62,6 +62,22 @@ public class CardService {
 
     }
 
+    public Card deleteCard (Card target) {
+
+        //TODO Check Validity Maybe
+        //At least one of (the static values or an ID)
+
+        try {
+            Object removedCard = cardDAO.genDelete(target);
+            return (Card) removedCard;
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
     // Checks that any card utilized is valid.
     public boolean isCardValid(Card card) {
             //TODO Write Valid Card Checks
