@@ -325,8 +325,78 @@ public class CardDAO implements CrudDAO<Card>{
         return false;
     }
 
+
+    public List<Object> genFindAll(Object target) throws Exception {
+    //Has an argument
+
+        Class<?> targetClass = target.getClass();
+
+        //Reflect the table annotiation
+       String table_Name = target.getClass().getAnnotation(Table.class).tableName();
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            // Create the query
+            String sql = "select * from " + table_Name;
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            // Gets a result set
+            ResultSet queryResult = pstmt.executeQuery(sql);
+
+
+            // Generic list to hold our data
+            List<Object> queryList = new LinkedList<>();
+
+            while (queryResult.next()) { // Continues until there is no result (in which case queryResult.next() returns false)
+                // Dummy object to store into
+                Object tempObj = targetClass.newInstance();
+                for (Field field: targetClass.getDeclaredFields()){ // Checks for every field in our dummy instance of the object.
+                    field.setAccessible(true); // Accessible moment
+
+                    // Checks if it's the primary key
+                    if (field.isAnnotationPresent(Id.class)){
+                        field.set(tempObj, queryResult.getObject(field.getAnnotation(Id.class).columnName()));
+                    }
+                    // If not, will check for if it's a column in the table
+                    else if (field.isAnnotationPresent(Column.class)){ // Saves any fields given to query to the map
+                        // If the value isn't null
+                        if (queryResult.getObject(field.getAnnotation(Column.class).columnName()) != null)
+                        {
+                            // If it's a big decimal, we need to convert to float.
+                            if (queryResult.getObject(field.getAnnotation(Column.class).columnName()).getClass() == BigDecimal.class){
+                                // Since you can't directly convert BigDecimal to doubles generically using cast, this workaround exists.
+                                BigDecimal tempDeci = queryResult.getBigDecimal(field.getAnnotation(Column.class).columnName());
+                                field.set(tempObj, tempDeci.doubleValue());
+                            }
+                            else { // Save non big decimal values 1:1 since other types play nice.
+                                field.set(tempObj,queryResult.getObject(field.getAnnotation(Column.class).columnName()));
+                            }
+                        }
+                        else { // Save null values
+                            field.set(tempObj,queryResult.getObject(field.getAnnotation(Column.class).columnName()));
+                        }
+
+                    }
+                }
+                // Add the object to the result list
+                queryList.add(tempObj);
+            }
+            // Check if the list is empty and yeet an exception, return if not empty.
+            if (!queryList.isEmpty()) {
+                return queryList;
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
     @Override
     public List<Card> findAll() {
+
 
         List<Card> cards = new LinkedList<>();
 

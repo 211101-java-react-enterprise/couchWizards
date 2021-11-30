@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.couchwizard.daos.CardDAO;
 import com.revature.couchwizard.services.CardService;
 import com.revature.couchwizard.web.servlets.InsertCardServlet;
+import com.revature.couchwizard.web.servlets.ReadCardServlet;
 import com.revature.couchwizard.web.servlets.TestServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,10 +31,12 @@ public class ContextLoaderListener implements ServletContextListener {
 
         TestServlet testServlet = new TestServlet();
         InsertCardServlet insertCardServlet = new InsertCardServlet(cardService, objectMapper);
+        ReadCardServlet readCardServlet = new ReadCardServlet(cardService, objectMapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("TestServlet", testServlet).addMapping("/test");
         context.addServlet("InsertCardServlet", insertCardServlet).addMapping("/save/*");
+        context.addServlet("ReadCardServlet", readCardServlet).addMapping("/read/*");
 
         System.out.println("Application initialized!");
     }

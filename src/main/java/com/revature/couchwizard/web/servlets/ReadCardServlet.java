@@ -29,7 +29,7 @@ public class ReadCardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.getWriter().write("<h1>/Read Works</h>");
         resp.setContentType("application/json");
-        List<Card> cards;
+        List<Object> cards;
 
         cards = cardService.findAllCards();
 

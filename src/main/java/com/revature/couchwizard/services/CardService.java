@@ -14,9 +14,18 @@ public class CardService {
         this.cardDAO = cardDAO;
     }
 
-    public List<Card> findAllCards() {
+    public List<Object> findAllCards() {
         //TODO Implement Maybe
-       return cardDAO.findAll();
+       Card dummyCard = new Card();
+
+        try{
+
+           return cardDAO.genFindAll(dummyCard);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       return null; // Should never get here
     }
 
     public boolean createNewCard(Card newCard) {
