@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.LinkedList;
 
 
 public class DeleteCardServlet extends HttpServlet {
@@ -31,12 +32,12 @@ public class DeleteCardServlet extends HttpServlet {
 
         System.out.println("Inside Delete servlet!");
 
-        Card wasDeleted = new Card();
+        LinkedList<Card> wasDeleted = new LinkedList<>();
 
         try{
             // Delete a Card
             Card removeCard = mapper.readValue(req.getInputStream(), Card.class);
-            wasDeleted = cardService.deleteCard(removeCard);
+            wasDeleted = cardService.deleteCards(removeCard);
             // Check if the card saved properly in the previous statement.
             if (wasDeleted != null){
                 System.out.println("Card removed from Database!");

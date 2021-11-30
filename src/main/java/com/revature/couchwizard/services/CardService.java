@@ -2,6 +2,7 @@ package com.revature.couchwizard.services;
 
 import com.revature.couchwizard.models.Card;
 
+import java.util.LinkedList;
 import java.util.List;
 import com.revature.couchwizard.daos.CardDAO;
 
@@ -62,14 +63,20 @@ public class CardService {
 
     }
 
-    public Card deleteCard (Card target) {
+    public LinkedList<Card> deleteCards (Card target) {
 
         //TODO Check Validity Maybe
         //At least one of (the static values or an ID)
 
         try {
-            Object removedCard = cardDAO.genDelete(target);
-            return (Card) removedCard;
+            LinkedList<Object> removedObjects = cardDAO.genDelete(target);
+            LinkedList<Card> removedCards = new LinkedList<>();
+            int i = 0;
+            while (i < removedObjects.size()){
+                removedCards.add((Card) removedObjects.get(i));
+                i++;
+            }
+            return removedCards;
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

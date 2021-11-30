@@ -73,7 +73,7 @@ public class CardDAO implements CrudDAO<Card>{
         return false;
     }
 
-    public List<Object> genRead(Object target) throws Exception{
+    public LinkedList<Object> genRead(Object target) throws Exception{
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             // Check that we have something to work with first.
             if (target == null) throw new NullPointerException("Given object is null!");
@@ -116,7 +116,7 @@ public class CardDAO implements CrudDAO<Card>{
             // Gets a result set
             ResultSet queryResult = genSQL.executeQuery();
             // Generic list to hold our data
-            List<Object> queryList = new LinkedList<>();
+            LinkedList<Object> queryList = new LinkedList<>();
             while (queryResult.next()) { // Continues until there is no result (in which case queryResult.next() returns false)
                 // Dummy object to store into
                 Object tempObj = targetClass.newInstance();
@@ -162,12 +162,12 @@ public class CardDAO implements CrudDAO<Card>{
         return null;
     }
 
-    public List<Object> genDelete(Object target) throws Exception{
+    public LinkedList<Object> genDelete(Object target) throws Exception{
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             // Check that we have something to work with first.
             if (target == null) throw new NullPointerException("Given object is null!");
 
-            List<Object> delTargets = genRead(target);
+            LinkedList<Object> delTargets = genRead(target);
             int i = 0;
             while(i < delTargets.size())
             {
@@ -338,7 +338,6 @@ public class CardDAO implements CrudDAO<Card>{
             // Create the query
             String sql = "select * from " + table_Name;
             Statement pstmt = conn.createStatement();
-            System.out.println(sql);
 
             // Gets a result set
             ResultSet queryResult = pstmt.executeQuery(sql);
