@@ -47,6 +47,10 @@ public class UpdateCardServlet extends HttpServlet {
             resp.setStatus(400);
             e.printStackTrace();
 
+        } catch (Exception e)
+        {
+            resp.setStatus(500);
+            System.out.println("Error Updating Card!");
         }
 
 

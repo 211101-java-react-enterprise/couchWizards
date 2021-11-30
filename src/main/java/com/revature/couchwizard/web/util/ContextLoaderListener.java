@@ -3,10 +3,7 @@ package com.revature.couchwizard.web.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.couchwizard.daos.CardDAO;
 import com.revature.couchwizard.services.CardService;
-import com.revature.couchwizard.web.servlets.DeleteCardServlet;
-import com.revature.couchwizard.web.servlets.InsertCardServlet;
-import com.revature.couchwizard.web.servlets.ReadCardServlet;
-import com.revature.couchwizard.web.servlets.TestServlet;
+import com.revature.couchwizard.web.servlets.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,12 +31,14 @@ public class ContextLoaderListener implements ServletContextListener {
         InsertCardServlet insertCardServlet = new InsertCardServlet(cardService, objectMapper);
         ReadCardServlet readCardServlet = new ReadCardServlet(cardService, objectMapper);
         DeleteCardServlet deleteCardServlet = new DeleteCardServlet(cardService, objectMapper);
+        UpdateCardServlet updateCardServlet = new UpdateCardServlet(cardService, objectMapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("TestServlet", testServlet).addMapping("/test");
         context.addServlet("InsertCardServlet", insertCardServlet).addMapping("/save/*");
         context.addServlet("ReadCardServlet", readCardServlet).addMapping("/read/*");
         context.addServlet("DeleteCardServlet", deleteCardServlet).addMapping("/delete/*");
+        context.addServlet("UpdateCardServlet", updateCardServlet).addMapping("/update/*");
 
         System.out.println("Application initialized!");
     }
