@@ -25,12 +25,11 @@ public class CardService {
             //TODO Exception Logic
             //throw new InvalidRequestException("Invalid card information values provided!");
         }
-
-        Card addedCard = cardDAO.save(newCard);
-
-        if (addedCard == null) {
-            //TODO Exception Logic
-            //throw new ResourcePersistenceException("The card could not be persisted to the datasource!");
+        try {
+            Object addedCard = cardDAO.genSave(newCard);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
         return true;

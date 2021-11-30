@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Table(tableName="cards")
 public class Card {
 
-    @Column(columnName="card_name")
+    @Column(columnName="card_name", isStatic = true)
     private String name;
     @Column(columnName="value")
     private Double value;
@@ -29,7 +29,7 @@ public class Card {
     private String description;
     @Column(columnName="c_cost")
     private String color;
-    @Column(columnName="print_set")
+    @Column(columnName="print_set", isStatic = true)
     private String printSet;
     @Id(columnName="card_id")
     private String id;
@@ -46,7 +46,7 @@ public class Card {
         this.power = power;
         this.toughness = toughness;
         this.description = description;
-        this.color = color;
+        setColor(color);
         this.printSet = printSet;
     }
 
