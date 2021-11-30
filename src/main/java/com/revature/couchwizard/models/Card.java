@@ -8,13 +8,15 @@ import com.revature.couchwizard.annotations.Column;
 import com.revature.couchwizard.annotations.Id;
 import com.revature.couchwizard.annotations.Table;
 
+import java.util.Arrays;
+
 @Table(tableName="cards")
 public class Card {
 
     @Column(columnName="card_name")
     private String name;
     @Column(columnName="value")
-    private double value;
+    private Double value;
     @Column(columnName="supertype")
     private String superTypes;
     @Column(columnName="subtype")
@@ -36,7 +38,7 @@ public class Card {
 
     public Card() {    }
 
-    public Card(String name, double value, String superTypes, String subTypes, String power, String toughness, String description, String color, String printSet) {
+    public Card(String name, Double value, String superTypes, String subTypes, String power, String toughness, String description, String color, String printSet) {
         this.name = name;
         this.value = value;
         this.superTypes = superTypes;
@@ -60,7 +62,7 @@ public class Card {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
@@ -109,7 +111,9 @@ public class Card {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        char sortArray[] = color.toUpperCase().toCharArray();
+        Arrays.sort(sortArray);
+        this.color = new String(sortArray);
     }
 
     public String getPrintSet() {

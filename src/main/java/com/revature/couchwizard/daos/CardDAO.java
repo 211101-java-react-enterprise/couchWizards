@@ -5,6 +5,7 @@ import com.revature.couchwizard.models.Card;
 import com.revature.couchwizard.util.ConnectionFactory;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.UUID;
 import java.util.*;
@@ -39,13 +40,13 @@ public class CardDAO implements CrudDAO<Card>{
                     if (field.get(target) != null)
                     {   // UUID's always have 36 characters
                         if (field.get(target).toString().length() != 36 ) objMap.put(field.getAnnotation(Id.class).columnName(), UUID.randomUUID().toString());
-                        else objMap.put(field.getAnnotation(Id.class).columnName(), field.get(target).toString());
+                        else objMap.put(field.getAnnotation(Id.class).columnName(), "'" + field.get(target).toString() + "'");
                     } // .getAnnotation(AnnoName.class) references the annotation which we can then pull .columnName() from.
-                    else objMap.put(field.getAnnotation(Id.class).columnName(), UUID.randomUUID().toString());
+                    else objMap.put(field.getAnnotation(Id.class).columnName(), "'" + UUID.randomUUID().toString() + "'");
                 } // If it's a normal column, adds that as well
                 else if (field.isAnnotationPresent(Column.class)){
-                    if (field.get(target) == null) objMap.put(field.getAnnotation(Column.class).columnName(), "null");
-                    else objMap.put(field.getAnnotation(Column.class).columnName(), field.get(target).toString());
+                    if (field.get(target) == null) objMap.put(field.getAnnotation(Column.class).columnName(), null);
+                    else objMap.put(field.getAnnotation(Column.class).columnName(), "'" + field.get(target).toString() + "'");
                 }
             }
             if (!doesIdExist) throw new RuntimeException("The class " + targetClass.getSimpleName() + " does not have a primary key!");
@@ -55,10 +56,11 @@ public class CardDAO implements CrudDAO<Card>{
             sql = sql + target.getClass().getAnnotation(Table.class).tableName() + " (";
             // Obligatory stream
             String sqlColumn = objMap.entrySet().stream().map(entry -> entry.getKey()).collect(Collectors.joining(", "));
-            sql = sql + sqlColumn + ") values ( '";
-            sqlColumn = objMap.entrySet().stream().map(entry -> entry.getValue()).collect(Collectors.joining("', '"));
-            sql = sql + sqlColumn + "')";
+            sql = sql + sqlColumn + ") values ( ";
+            sqlColumn = objMap.entrySet().stream().map(entry -> entry.getValue()).collect(Collectors.joining(", "));
+            sql = sql + sqlColumn + ")";
             PreparedStatement genSQL = conn.prepareStatement(sql);
+            System.out.println(sql);
 
             int rowsInserted = genSQL.executeUpdate();
 
@@ -67,7 +69,7 @@ public class CardDAO implements CrudDAO<Card>{
             }
 
     }catch (SQLException e) {
-        e.printStackTrace();
+            System.out.println(e.getMessage());
     }
         return false;
     }
@@ -109,23 +111,37 @@ public class CardDAO implements CrudDAO<Card>{
             // Obligatory stream
             String sqlColumn = objMap.entrySet().stream().map(entry -> entry.getKey() + " = '" + entry.getValue() + "'").collect(Collectors.joining(" and "));
             sql = sql + sqlColumn;
-            System.out.println(sql);
 
             PreparedStatement genSQL = conn.prepareStatement(sql);
 
             ResultSet queryResult = genSQL.executeQuery();
 
             List<Object> queryList = new LinkedList<>();
-            // TODO: Figure out how to cast big decimal to double when it needs to be cast
             while (queryResult.next()) {
+                // Dummy object to store into
                 Object tempObj = targetClass.newInstance();
                 for (Field field: targetClass.getDeclaredFields()){
                     field.setAccessible(true); // Accessible moment
+
                     if (field.isAnnotationPresent(Id.class)){
                         field.set(tempObj, queryResult.getObject(field.getAnnotation(Id.class).columnName()));
                     }
                     else if (field.isAnnotationPresent(Column.class)){ // Saves any fields given to query to the map
-                        field.set(tempObj, queryResult.getObject(field.getAnnotation(Column.class).columnName()));
+                        if (queryResult.getObject(field.getAnnotation(Column.class).columnName()) != null)
+                        {
+                            if (queryResult.getObject(field.getAnnotation(Column.class).columnName()).getClass() == BigDecimal.class){
+                                // Since you can't directly convert BigDecimal to doubles generically using cast, this workaround exists.
+                                BigDecimal tempDeci = queryResult.getBigDecimal(field.getAnnotation(Column.class).columnName());
+                                field.set(tempObj, tempDeci.doubleValue());
+                            }
+                            else { // Save non big decimal values 1:1 on typing.
+                                field.set(tempObj,queryResult.getObject(field.getAnnotation(Column.class).columnName()));
+                            }
+                        }
+                        else { // Save null values
+                            field.set(tempObj,queryResult.getObject(field.getAnnotation(Column.class).columnName()));
+                        }
+
                     }
                 }
                 queryList.add(tempObj);
