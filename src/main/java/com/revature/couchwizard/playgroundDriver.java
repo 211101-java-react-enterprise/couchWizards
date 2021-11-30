@@ -6,7 +6,7 @@ import com.revature.couchwizard.models.Card;
 import java.util.LinkedList;
 import java.util.List;
 
-public class cwdriver {
+public class playgroundDriver {
     public static void main(String[] args) {
 
         Object newCard = new Card("Doubling Season", 1000.00, "Enchantment", null, null, null, "Some Stuff About Stuff", "GCCC", "OneTooMany");
@@ -16,6 +16,7 @@ public class cwdriver {
         Object qCard = new Card(null, null, null, null, null, null, null, "Q", null);
         CardDAO newDao = new CardDAO();
 
+        /*
         // Save test
 
         try{newDao.genSave(newCard);}
@@ -39,5 +40,14 @@ public class cwdriver {
         // Update test
         try {newDao.genUp(uLotus);}
         catch(Exception e) { e.printStackTrace();}
+        */
+
+        try{
+            Card dummyCard = new Card();
+            System.out.println();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

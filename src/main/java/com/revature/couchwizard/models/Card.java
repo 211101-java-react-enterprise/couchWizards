@@ -58,7 +58,7 @@ public class Card {
         this.name = name;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 

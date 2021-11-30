@@ -15,16 +15,15 @@ public class CardService {
     }
 
     public List<Object> findAllCards() {
-        //TODO Implement Maybe
        Card dummyCard = new Card();
 
         try{
-
            return cardDAO.genFindAll(dummyCard);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("oh god we returned null");
        return null; // Should never get here
     }
 

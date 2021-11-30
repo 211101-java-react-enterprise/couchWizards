@@ -337,7 +337,8 @@ public class CardDAO implements CrudDAO<Card>{
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             // Create the query
             String sql = "select * from " + table_Name;
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            Statement pstmt = conn.createStatement();
+            System.out.println(sql);
 
             // Gets a result set
             ResultSet queryResult = pstmt.executeQuery(sql);
