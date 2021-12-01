@@ -102,6 +102,8 @@
                                 <exclude>com/revature/couchwizard/daos/*</exclude>
                                 <exclude>com/revature/couchwizard/models/*</exclude>
                                 <exclude>com/revature/couchwizard/exceptions/*</exclude>
+                                <exclude>com/revature/couchwizard/web/servlets/*</exclude>
+                                <exclude>com/revature/couchwizard/web/util/*</exclude>
                             </excludes>
                         </configuration>
                     </execution>

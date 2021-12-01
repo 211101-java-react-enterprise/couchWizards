@@ -61,13 +61,13 @@ public class CardServiceTest {
         }
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void test_newCard_throwsError_givenBadSQLCAll() throws Exception {
         // Arrange
         Card validCard = new Card("Doubling Season", 1000.00, "Enchantment", null, null, null, "Some Stuff About Stuff", "GCCC", "OneTooMany");
 
         // Throw an exception from genSave...
-        doThrow(Exception.class).when(mockORM.genSave(any(Card.class)));
+        doThrow(Exception.class).when(mockORM).genSave(any(Card.class));
         boolean actualResult = sut.createNewCard(validCard);
 
     }
@@ -82,9 +82,9 @@ public class CardServiceTest {
         }
     }
 
-    @Test (expected = Exception.class)
+    @Test
     public void test_findAllCards_ThrowsException_onBadORMCall () throws Exception{
-        doThrow(new Exception("bruh")).when(mockORM.genFindAll(any(Card.class)));
+        doThrow(Exception.class).when(mockORM).genFindAll(any());
         sut.findAllCards();
     }
 
@@ -102,10 +102,19 @@ public class CardServiceTest {
     }
 
     @Test (expected = ResourcePersistenceException.class)
-    public void test_update_throwsException_OnBadSQL () throws Exception {
+    public void test_update_throwsException_OnFalseResult () throws Exception {
         // Arrange
         Card validCard = new Card("Doubling Season", 1000.00, "Enchantment", null, null, null, "Some Stuff About Stuff", "GCCC", "OneTooMany");
         doAnswer(invocation -> false).when(mockORM).genUp(any());
+
+        boolean actualResult = sut.updateCard(validCard);
+    }
+
+    @Test (expected = ResourcePersistenceException.class)
+    public void test_update_throwsException_OnBadSQL () throws Exception {
+        // Arrange
+        Card validCard = new Card("Doubling Season", 1000.00, "Enchantment", null, null, null, "Some Stuff About Stuff", "GCCC", "OneTooMany");
+        doThrow(Exception.class).when(mockORM).genUp(any(Card.class));
 
         boolean actualResult = sut.updateCard(validCard);
     }
@@ -122,5 +131,15 @@ public class CardServiceTest {
         Assert.assertEquals(dummyList,target);
     }
 
+    @Test
+    public void test_delete_outputsException_OnException () throws Exception{
+        Card validCard = new Card("Doubling Season", 1000.00, "Enchantment", null, null, null, "Some Stuff About Stuff", "GCCC", "OneTooMany");
+        LinkedList<Card> dummyList = new LinkedList<>();
+        dummyList.add(validCard);
+        doThrow(Exception.class).when(mockORM).genDelete(any());
+
+        LinkedList<Card> target = sut.deleteCards(validCard);
+        Assert.assertEquals(new LinkedList<>(),target);
+    }
 
 }
