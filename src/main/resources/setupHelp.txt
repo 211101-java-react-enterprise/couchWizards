@@ -17,6 +17,6 @@ SIDENOTE: To add the ORM as a dependency when it's ready add this to dependencie
             <groupId>com.revature</groupId>
             <artifactId>couchwizards_orm</artifactId>
             <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>[.JAR PATH]</systemPath>
         </dependency>
+
+You first need to package the card_ORM folder using maven.

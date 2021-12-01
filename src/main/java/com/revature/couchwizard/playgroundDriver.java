@@ -1,6 +1,6 @@
 package com.revature.couchwizard;
 
-import com.revature.couchwizard.daos.CardDAO;
+import com.revature.cardorm.ORM.ORM;
 import com.revature.couchwizard.models.Card;
 
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ public class playgroundDriver {
         Object freeLotus = new Card("Black Lotus", null, "Artifact", null, null, null, "Sacrifice Black Lotus: Add three mana of any one color.", "Q", "Vintage Championship #2017NA");
         Object uLotus = new Card("Black Lotus", null, null, null, null, null, null, "0", null);
         Object qCard = new Card(null, null, null, null, null, null, null, "Q", null);
-        CardDAO newDao = new CardDAO();
+        //CardDAO newDao = new CardDAO();
 
         /*
         // Save test
@@ -41,6 +41,8 @@ public class playgroundDriver {
         try {newDao.genUp(uLotus);}
         catch(Exception e) { e.printStackTrace();}
         */
+
+
 
         try{
             Card dummyCard = new Card();

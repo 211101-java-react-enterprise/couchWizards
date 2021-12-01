@@ -4,9 +4,11 @@ package com.revature.couchwizard.models;
 
  */
 
-import com.revature.couchwizard.annotations.Column;
-import com.revature.couchwizard.annotations.Id;
-import com.revature.couchwizard.annotations.Table;
+
+
+import com.revature.cardorm.annotations.Column;
+import com.revature.cardorm.annotations.Id;
+import com.revature.cardorm.annotations.Table;
 
 import java.util.Arrays;
 

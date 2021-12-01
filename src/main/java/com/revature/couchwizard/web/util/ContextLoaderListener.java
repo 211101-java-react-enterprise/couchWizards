@@ -1,7 +1,7 @@
 package com.revature.couchwizard.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.couchwizard.daos.CardDAO;
+import com.revature.cardorm.ORM.ORM;
 import com.revature.couchwizard.services.CardService;
 import com.revature.couchwizard.web.servlets.*;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +24,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
 
         ObjectMapper objectMapper = new ObjectMapper();
-        CardDAO cardDAO = new CardDAO();
+        ORM cardDAO = new ORM();
         CardService cardService = new CardService(cardDAO);
 
         TestServlet testServlet = new TestServlet();

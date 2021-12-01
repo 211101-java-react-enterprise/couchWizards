@@ -1,25 +1,25 @@
 package com.revature.couchwizard.services;
 
+import com.revature.cardorm.ORM.ORM;
 import com.revature.couchwizard.models.Card;
 
 import java.util.LinkedList;
 import java.util.List;
-import com.revature.couchwizard.daos.CardDAO;
 
 
 public class CardService {
 
-    private final CardDAO cardDAO;
+    private final ORM cardORM;
 
-    public CardService(CardDAO cardDAO) {
-        this.cardDAO = cardDAO;
+    public CardService( ORM cardORM) {
+        this.cardORM = cardORM;
     }
 
     public List<Object> findAllCards() {
        Card dummyCard = new Card();
 
         try{
-           return cardDAO.genFindAll(dummyCard);
+           return cardORM.genFindAll(dummyCard);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class CardService {
             //throw new InvalidRequestException("Invalid card information values provided!");
         }
         try {
-            Object addedCard = cardDAO.genSave(newCard);
+            Object addedCard = cardORM.genSave(newCard);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -55,7 +55,7 @@ public class CardService {
         boolean addedCard = false;
 
         try {
-            addedCard = cardDAO.genUp(updateCard);
+            addedCard = cardORM.genUp(updateCard);
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class CardService {
         //At least one of (the static values or an ID)
 
         try {
-            LinkedList<Object> removedObjects = cardDAO.genDelete(target);
+            LinkedList<Object> removedObjects = cardORM.genDelete(target);
             LinkedList<Card> removedCards = new LinkedList<>();
             int i = 0;
             while (i < removedObjects.size()){

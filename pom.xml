@@ -54,6 +54,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.revature</groupId>
+            <artifactId>couchwizards_orm</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
 
 
