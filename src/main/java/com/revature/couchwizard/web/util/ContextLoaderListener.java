@@ -40,13 +40,11 @@ public class ContextLoaderListener implements ServletContextListener {
         context.addServlet("DeleteCardServlet", deleteCardServlet).addMapping("/delete/*");
         context.addServlet("UpdateCardServlet", updateCardServlet).addMapping("/update/*");
 
-        System.out.println("Application initialized!");
+        System.out.println("[CouchWizard] [INFO] Application initialized!");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        logger.info("Shutting down Couch Wizards web application!");
+        System.out.println("[CouchWizard] [INFO] Shutting down Couch Wizards web application!");
     }
 }
-
-//TODO Update, Read, Delete Servlets. Test Create(insert) servlet manually with a DB connection. Look into Sessions without a logged in user.

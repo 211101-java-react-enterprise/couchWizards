@@ -41,7 +41,7 @@ public class InsertCardServlet extends HttpServlet {
 
 
 
-        System.out.println("Inside servlet!");
+        System.out.println("[CouchWizard] [INFO] Inside servlet!");
 
         try{
             // Create a new card
@@ -49,10 +49,10 @@ public class InsertCardServlet extends HttpServlet {
             boolean wasSaved = cardService.createNewCard(newCard);
             // Check if the card saved properly in the previous statement.
             if (wasSaved){
-                System.out.println("Card Saved to Database!");
+                System.out.println("[CouchWizard] [INFO] Card Saved to Database!");
                 resp.setStatus(201);
             } else {
-                System.out.println("Could not save card. Please Check Logs");
+                System.out.println("[CouchWizard] [ERROR] Could not save card. Please Check Logs");
                 resp.setStatus(500);
             }
         } // Exception for if something goes wrong while trying to save the card.

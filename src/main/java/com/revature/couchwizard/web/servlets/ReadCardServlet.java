@@ -31,6 +31,8 @@ public class ReadCardServlet extends HttpServlet {
         resp.setContentType("application/json");
         List<Object> cards;
 
+        System.out.println("[CouchWizard] [INFO] Inside read servlet!");
+
         cards = cardService.findAllCards();
 
         if (cards.isEmpty()) {

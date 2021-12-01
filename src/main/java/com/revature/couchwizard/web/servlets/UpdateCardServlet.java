@@ -36,10 +36,10 @@ public class UpdateCardServlet extends HttpServlet {
             Card updateCard = mapper.readValue(req.getInputStream(), Card.class);
             boolean wasUpdated = cardService.updateCard(updateCard); // Only different line from InsertCardService
             if (wasUpdated){
-                System.out.println("Card updated in Database!");
+                System.out.println("[CouchWizard] [INFO] Card updated in Database!");
                 resp.setStatus(201);
             } else {
-                System.out.println("Could not update card. Please Check Logs");
+                System.out.println("[CouchWizard] [ERROR] Could not update card. Please Check Logs");
                 resp.setStatus(500);
             }
         }
@@ -50,7 +50,7 @@ public class UpdateCardServlet extends HttpServlet {
         } catch (Exception e)
         {
             resp.setStatus(500);
-            System.out.println("Error Updating Card!");
+            System.out.println("[CouchWizard] [ERROR] Error Updating Card!");
         }
 
 
