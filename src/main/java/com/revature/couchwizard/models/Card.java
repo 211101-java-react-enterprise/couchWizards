@@ -113,9 +113,12 @@ public class Card {
     }
 
     public void setColor(String color) {
-        char sortArray[] = color.toUpperCase().toCharArray();
-        Arrays.sort(sortArray);
-        this.color = new String(sortArray);
+        if (color == null) this.color = null;
+        else {
+            char sortArray[] = color.toUpperCase().toCharArray();
+            Arrays.sort(sortArray);
+            this.color = new String(sortArray);
+        }
     }
 
     public String getPrintSet() {

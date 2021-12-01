@@ -1,6 +1,8 @@
 package com.revature.couchwizard.services;
 
 import com.revature.cardorm.ORM.ORM;
+import com.revature.couchwizard.exceptions.InvalidRequestException;
+import com.revature.couchwizard.exceptions.ResourcePersistenceException;
 import com.revature.couchwizard.models.Card;
 
 import java.util.LinkedList;
@@ -17,22 +19,21 @@ public class CardService {
 
     public List<Object> findAllCards() {
        Card dummyCard = new Card();
+       List <Object> returnList = new LinkedList<>();
 
         try{
-           return cardORM.genFindAll(dummyCard);
+           returnList = cardORM.genFindAll(dummyCard);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("oh god we returned null");
-       return null; // Should never get here
+       return returnList; // Should never get here
     }
 
     public boolean createNewCard(Card newCard) {
 
         if (!isCardValid(newCard)) {
-            //TODO Exception Logic
-            //throw new InvalidRequestException("Invalid card information values provided!");
+            throw new InvalidRequestException("Invalid card information values provided!");
         }
         try {
             Object addedCard = cardORM.genSave(newCard);
@@ -45,13 +46,7 @@ public class CardService {
 
     }
 
-    public boolean updateCard(Card updateCard) throws Exception{
-
-        if (!isCardValid(updateCard)) {
-            //TODO Exception Logic
-            //throw new InvalidRequestException("Invalid card information values provided!");
-        }
-
+    public boolean updateCard(Card updateCard){
         boolean addedCard = false;
 
         try {
@@ -62,8 +57,7 @@ public class CardService {
         }
 
         if (!addedCard) {
-            //TODO Exception Logic
-            throw new Exception("The card could not be updated in datasource!");
+            throw new ResourcePersistenceException("[CouchWizard] [ERROR] The card could not be updated in datasource!");
         }
 
         return true;
@@ -72,29 +66,26 @@ public class CardService {
 
     public LinkedList<Card> deleteCards (Card target) {
 
-        //TODO Check Validity Maybe
-        //At least one of (the static values or an ID)
+        LinkedList<Card> removedCards = new LinkedList<>();
 
         try {
             LinkedList<Object> removedObjects = cardORM.genDelete(target);
-            LinkedList<Card> removedCards = new LinkedList<>();
             int i = 0;
             while (i < removedObjects.size()){
                 removedCards.add((Card) removedObjects.get(i));
                 i++;
             }
-            return removedCards;
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        return null;
+        return removedCards;
     }
 
     // Checks that any card utilized is valid.
     public boolean isCardValid(Card card) {
-            //TODO Write Valid Card Checks
+
         if (card == null) return false;
         if (card.getName() == null || card.getName().trim().equals("")) return false;
         if (card.getColor() == null || card.getColor().trim().equals("")) return false;
