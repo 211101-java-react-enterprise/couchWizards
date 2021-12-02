@@ -34,7 +34,6 @@ public class InsertCardServlet extends HttpServlet {
     // Overriding the original doPost in a way that sets everything we're doing as a json string.
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("<h1>/Insert Works</h>");
 
         PrintWriter respWriter = resp.getWriter();
         resp.setContentType("application/json");

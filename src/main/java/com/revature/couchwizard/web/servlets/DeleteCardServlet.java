@@ -27,7 +27,6 @@ public class DeleteCardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("<h1>/Delete Works</h>");
         resp.setContentType("application/json");
 
         System.out.println("[CouchWizard] [INFO] Inside Delete servlet!");
@@ -41,7 +40,7 @@ public class DeleteCardServlet extends HttpServlet {
             // Check if the card saved properly in the previous statement.
             if (wasDeleted != null){
                 System.out.println("[CouchWizard] [INFO] Card removed from Database!");
-                resp.setStatus(201);
+                resp.setStatus(200);
             } else {
                 System.out.println("[CouchWizard] [ERROR] Could not remove card. Please Check Logs");
                 resp.setStatus(500);
@@ -55,9 +54,6 @@ public class DeleteCardServlet extends HttpServlet {
 
         String payload = mapper.writeValueAsString(wasDeleted);
         resp.getWriter().write(payload);
-
-
-
 
 
     }

@@ -29,7 +29,6 @@ public class UpdateCardServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("<h1>/Update Works</h>");
         resp.setContentType("application/json");
 
         try{

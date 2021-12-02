@@ -40,6 +40,7 @@ public class ReadCardServlet extends HttpServlet {
             return; // return here so you don't try to execute the logic after this block
         }
 
+        resp.setStatus(200);
         String payload = mapper.writeValueAsString(cards);
         resp.getWriter().write(payload);
     }
