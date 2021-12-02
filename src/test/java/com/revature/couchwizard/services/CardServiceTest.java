@@ -133,12 +133,16 @@ public class CardServiceTest {
 
     @Test
     public void test_delete_outputsException_OnException () throws Exception{
+        // Arrange
         Card validCard = new Card("Doubling Season", 1000.00, "Enchantment", null, null, null, "Some Stuff About Stuff", "GCCC", "OneTooMany");
         LinkedList<Card> dummyList = new LinkedList<>();
         dummyList.add(validCard);
         doThrow(Exception.class).when(mockORM).genDelete(any());
 
+        // Act
         LinkedList<Card> target = sut.deleteCards(validCard);
+
+        // Assert
         Assert.assertEquals(new LinkedList<>(),target);
     }
 
